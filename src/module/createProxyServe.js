@@ -1,5 +1,7 @@
-const express = require('express');
-const proxyReq = require('./proxyReq');
+// const express = require('express');
+// const proxyReq = require('./proxyReq');
+import express from "express"
+import proxyReq from "./proxyReq"
 
 
 /**
@@ -48,7 +50,9 @@ function createProxyServe(proxyUrlObj, headers) {
         console.log(`代理服务：http://${hostName}:${port}`);
     });
 }
-module.exports = createProxyServe;
+// module.exports = createProxyServe;
+export default createProxyServe
+
 
 
 

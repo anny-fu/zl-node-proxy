@@ -1,4 +1,3 @@
-export = createProxyServe;
 /**
  * @function createProxyServe
  * @description 用于构造代理请求的模块
@@ -15,8 +14,9 @@ export = createProxyServe;
  * //let headers = true; //转发所有的请求头
  * let headers = ["content-type"];//只允许转发content-type请求头
 
- * 
+ *
  * //构造代理请求服务器
  * createProxyServe(proxyUrlObj, headers);
  */
-declare let createProxyServe: any;
+declare function _exports(proxyUrlObj: object, headers: any[] | boolean): void;
+export = _exports;

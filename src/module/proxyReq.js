@@ -1,4 +1,5 @@
-var axios = require('axios');
+// var axios = require('axios');
+import axios from "axios"
 function proxyReq(proxyUrlObj, headersVal) {
     return function route(req, res) {
         // 获取请求方式，路径，body,query,header
@@ -46,4 +47,5 @@ function proxyReq(proxyUrlObj, headersVal) {
         });
     }
 }
-module.exports = proxyReq;
+// module.exports = proxyReq;
+export default proxyReq
