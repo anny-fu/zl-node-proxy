@@ -6,8 +6,8 @@ function proxyReq(proxyUrlObj, headersVal) {
         let url = req.originalUrl;
         let body = req.body;
         let headers = req.headers;
-        console.log("====method,url,body,headers==", method, url, body, headers);
-        
+        // console.log("====method,url,body,headers==", method, url, body, headers);
+
         //根据设置的代理路径，得到真正的url
         for (let path in proxyUrlObj) {
             let reg = new RegExp("^" + path);
@@ -16,7 +16,7 @@ function proxyReq(proxyUrlObj, headersVal) {
                 break;
             }
         }
-        console.log("====url==", url);
+        // console.log("====url==", url);
 
         // 根据请求头过滤配置得到要向后端传递的请求头
         if (typeof headersVal == 'boolean') {
@@ -31,16 +31,17 @@ function proxyReq(proxyUrlObj, headersVal) {
             });
             headers = newHeader;
         }
-        console.log("====headers==", headers);
-
-        // 发送 POST 请求
-        axios({
+        // console.log("====headers==", headers);
+        let option = {
             method: method,
             url: url,
             data: body,
-            headers:headers
-        }).then(d => {
-            console.log(d.data);
+            headers: headers
+        };
+        console.log("=================代理请求信息==============\n", JSON.stringify(option, null, 4))
+        // 发送 POST 请求
+        axios(option).then(d => {
+            console.log("=================代理请求结果==============\n", JSON.stringify(d.data, null, 4))
             res.send(d.data);
         });
     }
