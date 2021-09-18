@@ -16,7 +16,6 @@ let headers = ["content-type"];
 createProxyServe(proxyUrlObj, headers);
 
 */
-
 // 两个代理地址
 let proxyUrlObj = {
     "/api": "http://problemset-test.geeklamp.cn",
