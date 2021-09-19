@@ -1,4 +1,3 @@
-// var axios = require('axios');
 import axios from "axios"
 function proxyReq(proxyUrlObj, headersVal) {
     return function route(req, res) {

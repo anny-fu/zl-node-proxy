@@ -9,7 +9,6 @@
     var express__default = /*#__PURE__*/_interopDefaultLegacy(express);
     var axios__default = /*#__PURE__*/_interopDefaultLegacy(axios);
 
-    // var axios = require('axios');
     function proxyReq(proxyUrlObj, headersVal) {
         return function route(req, res) {
             // 获取请求方式，路径，body,query,header
@@ -58,33 +57,31 @@
         }
     }
 
-    // const express = require('express');
-
-
     /**
      * @function createProxyServe
      * @description 用于构造代理请求的模块
-     * @param {object} proxyUrlObj 代理地址，可配置多个，对象的每个键值对代表一个代理请求(注意：由于地址是使用的正则匹配，不同的代理地址请不要有包含关系)
-     * @param {array|boolean} headers 当headers为数组时，代表实际转发给后端的请求头信息|当headers为布尔值类型时，true：代表转发所有的请求头，false:代表转发所有的请求头都进行转发
+     * @param {object} params 参数对象
+     * @param {object} params.port 代理服务的端口,默认 3213 
+     * @param {object} params.proxyUrlObj 代理地址，可配置多个，对象的每个键值对代表一个代理请求(注意：由于地址是使用的正则匹配，不同的代理地址请不要有包含关系)
+     * @param {array|boolean} params.headers 当headers为数组时，代表实际转发给后端的请求头信息 | 当headers为布尔值类型时：true 代表转发所有的请求头，false 代表转发所有的请求头都进行转发
      * @example
-     * // 两个代理地址
-     * let proxyUrlObj = {
-     *     "/api": "http://problemset-test.geeklamp.cn",
-     *     "/api2": "http://baidu.com",
-     * };
-     * // 请求头信息
-     * //let headers = false; //不转发任何请求头
-     * //let headers = true; //转发所有的请求头
-     * let headers = ["content-type"];//只允许转发content-type请求头
-
      * 
      * //构造代理请求服务器
-     * createProxyServe(proxyUrlObj, headers);
+     * createProxyServe({
+     *     port: 3333, //代理服务的端口
+     *     proxyUrlObj: {// 设置两个代理地址
+     *         "/api1": "http://problemset-test.geeklamp.cn",
+     *         "/api2": "http://baidu.com",
+     *     },
+     *     headers: ["content-type"],// 允许通过的请求头
+     * });
+     * // headers参数说明：headers也可以为Boolean类型，为true表示转发所有的请求头，为false表示不转发任何请求头
+     * 
      */
-    function createProxyServe(proxyUrlObj, headers) {
+    function createProxyServe({ port, proxyUrlObj, headers }) {
         const app = express__default['default']();
         const hostName = '0.0.0.0';  //有时127.0.0.1不能以本机IP地址访问，这时就可以尝试使用0.0.0.0
-        const port = 3000;
+        if (!port) port = 3123;
         app.use(express__default['default'].json());
         app.use(express__default['default'].urlencoded({ extended: false }));
         //设置跨域访问（设置在所有的请求前面即可）
@@ -108,21 +105,20 @@
         });
     }
 
-    // let createProxyServe = require("./module/createProxyServe");
-
     /*
 
     -------示例---------------
-    // 两个代理地址
-    let proxyUrlObj = {
-        "/api": "http://problemset-test.geeklamp.cn",
-        "/api2": "http://baidu.com",
-    };
-    // 允许通过的请求头
-    let headers = ["content-type"];
-
     //构造代理请求服务器
-    createProxyServe(proxyUrlObj, headers);
+    createProxyServe({
+        port: 3333, //代理服务的端口
+        proxyUrlObj: {// 两个代理地址
+            "/api1": "http://problemset-test.geeklamp.cn",
+            "/api2": "http://baidu.com",
+        },
+        headers: ["content-type"],//表示只允许转发content-type请求头
+    });
+    // headers参数说明：headers也可以为Boolean类型，为true表示转发所有的请求头，为false表示不转发任何请求头
+
 
     */
 
