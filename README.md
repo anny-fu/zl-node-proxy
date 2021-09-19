@@ -16,7 +16,7 @@
 let createProxyServe = require("zl-node-proxy");
 //构造代理请求服务器
 createProxyServe({
-    port: 3125, //代理服务的端口，默认3123
+    port: 3125, //代理服务的端口，默认3123,如果你电脑的当前端口已经被占用，那么可以手动更换电脑端口
     proxyUrlObj: {// 两个代理地址
         "/proxyUrl1": "http://problemset-test.geeklamp.cn",
         "/proxyUrl2": "http://baidu.com",
@@ -38,7 +38,7 @@ createProxyServe({
      1. 在react项目的入口文件中向React对象添加代理地址变量,如下
       ![dd](/assets/dd.png)
       ```js
-         // 设置了两个代理地址（需要注意的是下面的端口需要和代理地址的端口保持一致）
+         // 设置了两个代理地址（注意：1. 下面的端口需要和代理地址的端口保持一致 2. 如果你想让局域网的其他电脑访问你的页面，请把下面的127.0.0.1换成你电脑在的真正IP地址）
           React.$proxyUrl1="http://127.0.0.1:3125/proxyUrl1";
           React.$proxyUrl2="http://127.0.0.1:3125/proxyUrl2";
       ```
