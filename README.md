@@ -1,17 +1,18 @@
 # zl-node-proxy
 使用node开发的一个请求代理模块
 
-### 安装模块
+## 安装模块
 ```js
  npm i zl-node-proxy -D
 ```
 
-### 使用此代理模块（以react项目为例）
+## 使用此代理模块（以react项目为例）
 
 由于此代理服务端口和react页面服务**不是**同一个端口，所以不会和react项目中已经开启的代理服务进行冲突，即可以两个代理服务共用
 
+**使用流程**
 1. 在react项目根目录创建配置文件 zl_node_proxy.config.js
-![bb](/assets/bb.png)
+ ![bb](/assets/bb.png)
 ```js
 let createProxyServe = require("zl-node-proxy");
 //构造代理请求服务器
@@ -27,7 +28,7 @@ createProxyServe({
 
 ```
 
-1. 在react项目的package.json中的start脚本命令中追加命令：node ./zl_node_proxy.config.js
+2. 在react项目的package.json中的start脚本命令中追加命令：node ./zl_node_proxy.config.js
    ![cc](/assets/cc.png)
 ```js
 如：
